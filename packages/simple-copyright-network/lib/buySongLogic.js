@@ -24,19 +24,33 @@
  * @transaction
  */
 function onBuySong(buySong) {
-    console.log('### onBuySong ' + buySong.toString());
+    console.log('### onBuySong ');
+    var price = buySong.price;
+    if (buySong.soldTo.balance < price ) {
+        throw new Error('Buyer does not have enough money to buy the song');
+    }
+    var sellersPercent = buySong.songSellingAgreement.sellersPercent;
+    if ( sellersPercent > 0.0 ) {
+        var sellerPercent = sellersPercent / 100;
+        var sellersCut = sellerPercent * price;
+        buySong.songSellingAgreement.song.owner.balance = buySong.songSellingAgreement.song.owner.balance + (price - sellersCut);
+        buySong.songSellingAgreement.songSeller.balance = buySong.songSellingAgreement.songSeller.balance + sellersCut;
+    } else {
+        buySong.song.owner.balance = buySong.song.owner.balance + price;
+    }
+    
+    //console.log('### sellersCut ' + sellersCut);
+    console.log('### owner balance '  + buySong.songSellingAgreement.song.owner.balance);
+    console.log('### seller balance '  + buySong.songSellingAgreement.songSeller.balance);
 
-
-
-
-
+    return;
 
     /**
  * The transaction to buy a song.
  
 transaction BuySong {
     o Double price
-    --> Person soldTo
+    --> Entity soldTo
     --> SongSellingAgreement songSellingAgreement
   }
 
@@ -45,13 +59,8 @@ transaction BuySong {
 /**
  * The rights to play a song.
  
-asset SongPlayAgreement identified by songPlayAgreementId {
-    o String songPlayAgreementId
-    o Integer playcount default=0
-    --> Person soldTo
-    --> SongSellingAgreement songSellingAgreement
-  }
-*/
+
+
     if (!trustPerson.trustee.person.real) {
         throw new Error('Only trusted persons whom are real can register others on the network.');
     }
@@ -70,4 +79,5 @@ asset SongPlayAgreement identified by songPlayAgreementId {
         .catch(function (error) {
             // Add optional error handling here.
         })
+        */
 }
