@@ -3,6 +3,9 @@ The following repo is for the [CL+B 2018 challenge](https://legalhackers.org/clb
 
 The documenation response for the challenge can be found [here](https://github.com/martinp47/Copyright-Protection-for-All).
 
+# Shout Out
+This code was forked and modified from the [hyperledger compose sample networks project](https://github.com/hyperledger/composer-sample-networks).
+
 # Purpose
 The purpose of the repo is to showcase the smart contracts for the challenge. Please review details at the documenation sure listed above
 
