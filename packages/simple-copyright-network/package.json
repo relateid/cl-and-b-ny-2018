@@ -5,8 +5,8 @@
   "name": "simple-copyright-network",
   "version": "0.0.1",
   "description": "Digital Property Network For CL&B",
-  "networkImage": "https://hyperledger.github.io/composer-sample-networks/packages/digitalproperty-network/networkimage.svg",
-  "networkImageanimated": "https://hyperledger.github.io/composer-sample-networks/packages/digitalproperty-network/networkimageanimated.svg",
+  "networkImage": "https://github.com/relateid/cl-and-b-ny-2018/blob/master/packages/simple-copyright-network/networkimage.svg",
+  "networkImageanimated": "https://github.com/relateid/cl-and-b-ny-2018/blob/master/packages/simple-copyright-network/networkimageanimated.svg",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/simple-copyright.bna",
     "pretest": "npm run lint",
@@ -46,7 +46,7 @@
     "moment": "^2.17.1"
   },
   "dependencies": {
-    "digitalproperty-model": "^0.1.2"
+    "simple-copyright-model": "^0.1.1"
   },
   "license-check-config": {
     "src": [
