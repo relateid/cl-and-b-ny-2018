@@ -24,7 +24,6 @@
  * @transaction
  */
 function onTrustPerson(trustPerson) {
-    console.log('### onTrustPerson ' + trustPerson.toString());
     if (!trustPerson.trustee.person.real) {
         throw new Error('Only trusted persons whom are real can register others on the network.');
     }

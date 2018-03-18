@@ -38,46 +38,24 @@ function onBuySong(buySong) {
     } else {
         buySong.song.owner.balance = buySong.song.owner.balance + price;
     }
-    
-    //console.log('### sellersCut ' + sellersCut);
-    console.log('### owner balance '  + buySong.songSellingAgreement.song.owner.balance);
-    console.log('### seller balance '  + buySong.songSellingAgreement.songSeller.balance);
-
-    return;
-
-    /**
- * The transaction to buy a song.
- 
-transaction BuySong {
-    o Double price
-    --> Entity soldTo
-    --> SongSellingAgreement songSellingAgreement
-  }
-
-*/
-
-/**
- * The rights to play a song.
- 
-
-
-    if (!trustPerson.trustee.person.real) {
-        throw new Error('Only trusted persons whom are real can register others on the network.');
-    }
-    if (!trustPerson.trustee.organization.trusted) {
-        throw new Error('Only trusted organizations assign people to register others onto the network as real.');
-    }
-    return getParticipantRegistry('com.relateid.simpleCopyrightNetwork.Person')
-        .then(function (personAssetRegistry) {
+    return getAssetRegistry('com.relateid.simpleCopyrightNetwork.LicensedSong')
+        .then(function (lsr) {
             var factory = getFactory();
-            var person = factory.newResource('com.relateid.simpleCopyrightNetwork', 'Person', trustPerson.firstName + '-' + trustPerson.lastName);
-            person.firstName = trustPerson.firstName;
-            person.lastName = trustPerson.lastName;
-            person.real = true;
-            return personAssetRegistry.add(person);
+            var licenseSong = factory.newResource('com.relateid.simpleCopyrightNetwork', 'LicensedSong', buySong.soldTo.entityId + '-' + buySong.songSellingAgreement.songSellingAgreementId);
+            licenseSong.owner = factory.newRelationship('com.relateid.simpleCopyrightNetwork', 'Entity', buySong.soldTo.entityId);
+            licenseSong.songSellingAgreement = factory.newRelationship('com.relateid.simpleCopyrightNetwork', 'SongSellingAgreement', buySong.songSellingAgreement.songSellingAgreementId);
+            return lsr.add(licenseSong);
         })
-        .catch(function (error) {
-            // Add optional error handling here.
+        .then(function() {
+            return getParticipantRegistry('com.relateid.simpleCopyrightNetwork.Organization');
         })
-        */
+        .then(function (or) {
+            return or.update(buySong.songSellingAgreement.songSeller);
+        })
+        .then(function() {
+            return getParticipantRegistry('com.relateid.simpleCopyrightNetwork.Person');
+        })
+        .then(function (pr) {
+            return pr.update(buySong.songSellingAgreement.song.owner);
+        })
 }
