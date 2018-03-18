@@ -1,75 +1,23 @@
-# Digital Property Network
+# Dispute Resolution Challenge
+The following repo is for the [CL+B 2018 challenge](https://legalhackers.org/clbfest2018-hack/).
 
-> This Defines a business network where house sellers can list their properties for sale.
+The documenation response for the challenge can be found [here](https://github.com/martinp47/Copyright-Protection-for-All).
 
-This business network defines:
+# Install
+You must install [Lerna](https://lernajs.io) to build this multi-package repository.
 
-**Participant**
-`Person`
+    $ npm install -g lerna
 
-**Assets**
-`LandTitle` `SalesAgreement`
+Once Lerna is installed, and this repository is cloned, then you must bootstrap the
+repository so that all of the dependencies are installed and all of the packages are
+linked together:
 
-**Transaction**
-`RegisterPropertyForSale`
+    $ lerna bootstrap
 
-A `Person` is responsible for a `LandTitle`. By creating a `SalesAgreement` between two `Person` participants you are then able to submit a `RegisterPropertyForSale` transaction.
+You can then work with the packages under [packages/](packages/) on a per-package
+basis as any normal node.js package.
 
-To test this Business Network Definition in the **Test** tab:
+Alternatively, you can execute npm commands across all of the packages at once using
+Lerna:
 
-Create two `Person` participants:
-
-```
-{
-  "$class": "net.biz.digitalPropertyNetwork.Person",
-  "personId": "personId:Billy",
-  "firstName": "Billy",
-  "lastName": "Thompson"
-}
-```
-
-```
-{
-  "$class": "net.biz.digitalPropertyNetwork.Person",
-  "personId": "personId:Jenny",
-  "firstName": "Jenny",
-  "lastName": "Jones"
-}
-```
-
-Create a `LandTitle` asset:
-
-```
-{
-  "$class": "net.biz.digitalPropertyNetwork.LandTitle",
-  "titleId": "titleId:ABCD",
-  "owner": "resource:net.biz.digitalPropertyNetwork.Person#personId:Billy",
-  "information": "Detached House"
-}
-```
-
-Create a `SalesAgreement` asset:
-
-```
-{
-  "$class": "net.biz.digitalPropertyNetwork.SalesAgreement",
-  "salesId": "salesId:1234",
-  "buyer": "resource:net.biz.digitalPropertyNetwork.Person#personId:Jenny",
-  "seller": "resource:net.biz.digitalPropertyNetwork.Person#personId:Billy",
-  "title": "resource:net.biz.digitalPropertyNetwork.LandTitle#titleId:ABCD"
-}
-```
-
-Submit a `RegisterPropertyForSale` transaction:
-
-```
-{
-  "$class": "net.biz.digitalPropertyNetwork.RegisterPropertyForSale",
-  "seller": "resource:net.biz.digitalPropertyNetwork.Person#personId:Billy",
-  "title": "resource:net.biz.digitalPropertyNetwork.LandTitle#titleId:ABCD"
-}
-```
-
-This `RegisterPropertyForSale` transaction will update `titleId:ABCD` `LandTitle` asset to `forSale`.
-
-Congratulations!
+    $ lerna run test
