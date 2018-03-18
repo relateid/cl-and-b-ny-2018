@@ -1,7 +1,10 @@
-# Dispute Resolution Challenge
+# Dispute Resolution Challenge - Network
 The following repo is for the [CL+B 2018 challenge](https://legalhackers.org/clbfest2018-hack/).
 
 The documenation response for the challenge can be found [here](https://github.com/martinp47/Copyright-Protection-for-All).
+
+# Purpose
+The purpose of the repo is to showcase the smart contracts for the challenge. Please review details at the documenation sure listed above
 
 # Install
 You must install [Lerna](https://lernajs.io) to build this multi-package repository.
