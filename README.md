@@ -1,10 +1,7 @@
-# RelateID Legal Hackers
-Note that this repo was forked from https://github.com/hyperledger/composer-sample-networks
+# Dispute Resolution Challenge
+The following repo is for the [CL+B 2018 challenge](https://legalhackers.org/clbfest2018-hack/).
 
-# About
-This repo...
-
-
+The documenation response for the challenge can be found [here](https://github.com/martinp47/Copyright-Protection-for-All).
 
 # Install
 You must install [Lerna](https://lernajs.io) to build this multi-package repository.
